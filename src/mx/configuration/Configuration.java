@@ -30,7 +30,7 @@ public class Configuration
 	/**
 	 * Questa variabile viene utilizzata per gestire la lista dei parametri dell'applicazione
 	 */
-	public static Hashtable<String, String> listaParametri = null;
+	public static Hashtable<String, Object> listaParametri = null;
 
 	/**
 	 * Questa variabile viene utilizzata per gestire il pool 
@@ -250,7 +250,7 @@ public class Configuration
 				prop.load(fis);
 
 				if (listaParametri == null)
-					listaParametri = new Hashtable<String, String>();
+					listaParametri = new Hashtable<String, Object>();
 				for (Enumeration<Object> e = prop.keys(); e.hasMoreElements();)
 				{
 					key = (String) e.nextElement();
@@ -308,13 +308,9 @@ public class Configuration
 		{
 			if (databaseName != null && !databaseName.equals(""))
 			{
-				serverName = (listaParametri.get("database."+databaseName+".serverName")!= null?
-							listaParametri.get("database."+databaseName+".serverName"):
-							"");
+				serverName = (String) (get("database."+databaseName+".serverName",""));
 
-				userName = (listaParametri.get("database."+databaseName+".userName")!= null?
-							listaParametri.get("database."+databaseName+".userName"):
-							"");
+				userName = (String) (get("database."+databaseName+".userName",""));
 				for (int x=0; x<tipoUtente.length; x++)
 				{
 					if (listaParametri.get("database."+databaseName+".userName."+tipoUtente[x])!= null)
@@ -329,9 +325,7 @@ public class Configuration
 					}
 				}
 
-				password = (listaParametri.get("database."+databaseName+".password")!= null?
-							listaParametri.get("database."+databaseName+".password"):
-							"");
+				password = (String) (get("database."+databaseName+".password",""));
 				for (int x=0; x<tipoUtente.length; x++)
 				{
 					if (listaParametri.get("database."+databaseName+".password."+tipoUtente[x])!= null)
@@ -351,24 +345,24 @@ public class Configuration
 					}
 				}
 				if (password.equals(""))
-					password = get("database."+databaseName+".pwdName", "");
+					password = (String) get("database."+databaseName+".pwdName", "");
 
-				tipoDatabase = get("database."+databaseName+".tipoDatabase", "");
+				tipoDatabase = (String) get("database."+databaseName+".tipoDatabase", "");
 				if (tipoDatabase.equals(""))
-					tipoDatabase = get("database."+databaseName+".tipoDB", "");
+					tipoDatabase = (String) get("database."+databaseName+".tipoDB", "");
 
-				nomeDatabase = get("database."+databaseName+".nomeDatabase", "");
+				nomeDatabase = (String) get("database."+databaseName+".nomeDatabase", "");
 				if (nomeDatabase.equals(""))
-					nomeDatabase = get("database."+databaseName+".databaseName", "");
+					nomeDatabase = (String) get("database."+databaseName+".databaseName", "");
 
 				if (get("database."+databaseName+".numConnessioni", "").equals(""))
-					numConnessioni = Integer.parseInt(get("database."+databaseName+".numConn", "2"));
+					numConnessioni = Integer.parseInt((String) get("database."+databaseName+".numConn", "2"));
 				else
-					numConnessioni = Integer.parseInt(get("database."+databaseName+".numConnessioni", "2"));
+					numConnessioni = Integer.parseInt((String) get("database."+databaseName+".numConnessioni", "2"));
 
-				serverPort = get("database."+databaseName+".serverPort", "");
+				serverPort = (String) get("database."+databaseName+".serverPort", "");
 				if (serverPort.equals(""))
-					serverPort = get("database."+databaseName+".portNumber", "");
+					serverPort = (String) get("database."+databaseName+".portNumber", "");
 				pool = new ConnectionPool(serverName, userName, password, tipoDatabase, 
 						nomeDatabase, numConnessioni, serverPort);
 
@@ -390,7 +384,7 @@ public class Configuration
 		}
 	}
 
-	private static String get(String key, String def){
+	public static Object get(String key, Object def){
 		if (listaParametri.get(key)!=null){
 			return listaParametri.get(key);
 		} else {

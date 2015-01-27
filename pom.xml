@@ -1,8 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>Configuration</groupId>
-	<artifactId>it.sbn.firenze.bncf.tecaDigitale.configuration</artifactId>
+	<groupId>it.sbn.firenze.bncf.tecaDigitale.configuration</groupId>
 	<version>1.0.0</version>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -38,11 +37,14 @@
 	</repositories>
 	<dependencies>
 		<dependency>
-			<groupId>ConnectionDatabase</groupId>
-			<artifactId>
+			<groupId>
 				it.sbn.firenze.bncf.tecaDigitale.imageViewer.connectionDatabase
+			</groupId>
+			<artifactId>
+			ConnectionDatabase
 			</artifactId>
 			<version>1.0.0</version>
 		</dependency>
 	</dependencies>
+	<artifactId>Configuration</artifactId>
 </project>
